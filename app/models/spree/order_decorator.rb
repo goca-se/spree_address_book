@@ -3,7 +3,7 @@
 ]).flatten!
 
 Spree::Order.class_eval do
-  before_validation :clone_shipping_address, :if => "Spree::AddressBook::Config[:disable_bill_address]"
+  before_validation :clone_shipping_address, if: -> { Spree::AddressBook::Config[:disable_bill_address] }
   
   def clone_shipping_address
     if self.ship_address
@@ -85,7 +85,7 @@ Spree::Order.class_eval do
       attributes.delete(:id)
 
       if address && address.editable?
-        address.update_attributes(attributes)
+        address.update(attributes)
         return address
       else
         attributes.delete(:id)

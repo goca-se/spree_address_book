@@ -31,7 +31,7 @@ class Spree::AddressesController < Spree::StoreController
 
   def update
     if @address.editable?
-      if @address.update_attributes(address_params)
+      if @address.update(address_params)
         flash[:notice] = I18n.t(:successfully_updated, scope: :address_book)
         redirect_back_or_default(account_path)
       else
@@ -54,7 +54,7 @@ class Spree::AddressesController < Spree::StoreController
     @address.destroy
 
     flash[:notice] = I18n.t(:successfully_removed, scope: :address_book)
-    redirect_to(request.env['HTTP_REFERER'] || account_path) unless request.xhr?
+    redirect_back(fallback_location: account_path) unless request.xhr?
   end
 
   private
