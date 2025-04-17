@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', '3.1.14.rails.5.0.1'
+  s.add_dependency 'spree_core', '3.1.14.rails.5.2.8.1'
   s.add_development_dependency 'spree_auth_devise', '~> 3.1.0.beta'
 
   s.add_development_dependency 'rspec-rails', '~> 3.5.0'
