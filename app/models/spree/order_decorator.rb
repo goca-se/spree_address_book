@@ -3,7 +3,7 @@
 ]).flatten!
 
 Spree::Order.class_eval do
-  before_validation :clone_shipping_address, :if => "Spree::AddressBook::Config[:disable_bill_address]"
+  before_validation :clone_shipping_address, if: :should_clone_address?
   
   def clone_shipping_address
     if self.ship_address
@@ -63,6 +63,10 @@ Spree::Order.class_eval do
   #set_callback :updating_from_params, :before, :update_addresses_params
 
   private
+
+  def should_clone_address?
+    Spree::AddressBook::Config[:disable_bill_address]
+  end
 
   def update_addresses_params
     self.bill_address_attributes = @updating_params["order"].delete("bill_address_attributes")
